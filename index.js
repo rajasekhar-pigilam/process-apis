@@ -30,7 +30,7 @@ app.get('/phone/:phone', (req, res) => {
 
 app.get('/only-phone/:phone', (req, res) => {
   // this is wrapped in an `async` function
-  // you can use await throughout the function
+  // you can use await throughout the function.
   let phone = req.params.phone;
   output = {phone};
   if(phone.length == 10)
