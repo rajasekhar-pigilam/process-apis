@@ -6,10 +6,6 @@ app.get('/', (req, res) => {
   res.send('Hello World!')
 })
 
-app.listen(port, () => {
-  console.log(`Example app listening on port ${port}`)
-})
-
 app.get('/phone/:phone', (req, res) => {
     // this is wrapped in an `async` function
     // you can use await throughout the function
@@ -44,4 +40,8 @@ app.get('/only-phone/:phone', (req, res) => {
   else
   output = {phone};
   res.send(output)
+})
+
+app.listen(port, () => {
+  console.log(`Example app listening on port ${port}`)
 })
