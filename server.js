@@ -21,7 +21,39 @@ app.get('/phone/:phone', (req, res) => {
     output = {phone: phone.substring(1,13)};
     else
     output = {phone};
-    res.send(output)
+
+    const today = new Date();
+
+    Date.prototype.getWeek = function() {
+      var onejan = new Date(this.getFullYear(),0,1);
+      var today = new Date(this.getFullYear(),this.getMonth(),this.getDate());
+      var dayOfYear = ((today - onejan + 86400000)/86400000);
+      return Math.ceil(dayOfYear/7)
+    };
+
+    function formatDate(date, format) {
+      const map = {
+          mm: String(date.getMonth() + 1).padStart(2, '0'),
+          dd: String(date.getDate()).padStart(2, '0'),
+          //yy: date.getFullYear().toString().slice(-2),
+          yyyy: date.getFullYear()
+      }
+  
+      return format.replace(/mm|dd|yyyy/gi, matched => map[matched])
+    }
+
+    let date = formatDate(today, 'dd-mm-yyyy');
+
+    var week = today.getWeek();
+
+    week = String(week).padStart(2, '0'); // '09'
+    let month = formatDate(today, 'mm')
+
+    month = String(month).padStart(2, '0');
+
+    let suffix = "FS" + formatDate(today, 'yyyy') + month + week
+
+    res.send({...output, date, suffix})
 })
 
 app.get('/only-phone/:phone', (req, res) => {
@@ -42,6 +74,8 @@ app.get('/only-phone/:phone', (req, res) => {
   res.send(output)
 })
 
-app.listen(port, () => {
-  console.log(`Example app listening on port ${port}`)
-})
+// app.listen(port, () => {
+//   console.log(`Example app listening on port ${port}`)
+// })
+
+module.exports = app;

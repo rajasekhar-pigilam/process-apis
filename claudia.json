@@ -1,0 +1,10 @@
+{
+  "lambda": {
+    "role": "process-apis-executor",
+    "name": "process-apis",
+    "region": "ap-south-1"
+  },
+  "api": {
+    "id": "rhiy171tll"
+  }
+}
